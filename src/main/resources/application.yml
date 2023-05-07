@@ -1,0 +1,8 @@
+server:
+  port: 8080
+path:
+  base: /media/sf_public/e
+command:
+  image: eog
+placeholder:
+  url: "https://placehold.co/640/webp?text=No+Cover"
