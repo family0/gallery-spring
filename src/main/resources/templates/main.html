@@ -14,7 +14,7 @@
       <a class="text-decoration-none fs-5" th:href="${parent}" th:text="${title}"></a>
     </div>
   </div>
-  <div class="row">
+  <div class="row" oncontextmenu="openImg()">
     <div class="col-lg-2 col-md-3 col-4 p-0" th:each="item : ${list}">
       <a class="text-decoration-none" th:href="${item.href}">
         <span th:text="${item.name}"></span>
