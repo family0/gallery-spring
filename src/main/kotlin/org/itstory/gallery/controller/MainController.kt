@@ -74,7 +74,7 @@ class MainController(
     }
 
     @ResponseBody
-    @GetMapping("/image/{a}/thumb.webp")
+    @GetMapping("/image/{a}/{img}")
     fun image(@PathVariable a: String, @PathVariable img: String): ResponseEntity<Resource> {
         return try {
             val artist = service.decode(a)
