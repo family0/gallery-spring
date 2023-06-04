@@ -3,6 +3,10 @@ package org.itstory.gallery.service
 import org.itstory.gallery.domain.OnePage
 import org.itstory.gallery.domain.Thumbnail
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.InputStreamResource
+import org.springframework.core.io.Resource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -38,9 +42,9 @@ class MainService(
 
     fun artistThumb(artist: Path): Thumbnail {
         val a = encode(artist)
-        val thumb = Paths.get("$artist/thumb.webp")
+        val thumb = Paths.get("$artist/_.webp")
         val url = if (thumb.exists()) {
-            "/image/$a/thumb.webp"
+            "/image/$a/_.webp"
         } else {
             try { artistThumbUrl(artist) }
             catch (_: Exception) { placeholder }
@@ -77,9 +81,9 @@ class MainService(
     }
 
     fun workThumbName(work: Path): String {
-        val thumb = Paths.get("$work/thumb.webp")
+        val thumb = Paths.get("$work/_.webp")
         return if (thumb.exists()) {
-            "thumb.webp"
+            "_.webp"
         } else {
             work.listDirectoryEntries()
                 .first { it.isRegularFile() }
@@ -111,5 +115,15 @@ class MainService(
             next = "/artist/$a/$b/$next",
             src = "/image/$a/$b/$page",
         )
+    }
+
+    fun responseEntity(path: Path): ResponseEntity<Resource> {
+        if (path.notExists())
+            return ResponseEntity.notFound().build()
+        val resource = InputStreamResource(path.inputStream())
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${path.name}\"")
+            .header(HttpHeaders.CONTENT_LENGTH, path.fileSize().toString())
+            .body(resource)
     }
 }
