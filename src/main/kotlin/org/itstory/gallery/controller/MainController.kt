@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.ResponseBody
 import java.nio.file.Paths
-import java.util.*
-import kotlin.io.path.*
+import kotlin.io.path.pathString
 
 @Controller
 class MainController(

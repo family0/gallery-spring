@@ -1,8 +1,8 @@
 server:
   port: 8080
 path:
-  base: /media/sf_public/e
+  base: e:\e
 command:
-  image: eog
+  image: C:\Program Files\Honeyview\Honeyview.exe
 placeholder:
   url: "https://placehold.co/640/webp?text=No+Cover"
